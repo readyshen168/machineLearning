@@ -27,3 +27,26 @@ def classif0(inX, dataSet, labels, k):
         classCount[voteIlabel] = classCount.get(voteIlabel, 0) + 1
     sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
+
+
+# 从文本文件中解析数据
+def file2matirx(filename):
+    fr = open(filename)
+    arrayOfLines = fr.readlines()
+    numberOfLines = len(arrayOfLines)
+    # 训练样本矩阵
+    returnMat = zeros((numberOfLines, 3))
+    # 类标签向量
+    classLabelVector = []
+    index = 0
+    for line in arrayOfLines:
+        line = line.strip()
+        listFromLine = line.split('\t')
+        # 填充训练样本矩阵
+        returnMat[index,:] = listFromLine[0:3]
+        # 填充类标签向量
+        classLabelVector.append(int(listFromLine[-1]))
+        index += 1
+    # 返回训练样本矩阵和类标签向量
+    return returnMat, classLabelVector
+
