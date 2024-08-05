@@ -50,3 +50,20 @@ def file2matirx(filename):
     # 返回训练样本矩阵和类标签向量
     return returnMat, classLabelVector
 
+
+# 归一化特征值
+def autoNorm(dataSet):
+    # 得出每一列的最小值和最大值
+    minVals = dataSet.min(0)
+    maxVals = dataSet.max(0)
+    normDataSet = zeros(dataSet.shape)
+    # 数据集的行数
+    rows = dataSet.shape(0)
+    # 得出数据集每个数与其所在列最小值差值
+    normDataSet = dataSet - tile(minVals, (rows, 1))
+    # 再除以每一列最大值与最小值之差
+    ranges = maxVals-minVals
+    normDataSet = normDataSet/tile(ranges, (rows, 1))
+    # 返回归一化数据集， 原始数据每一列最大值与最小值的差，每一列的最小值
+    return normDataSet, ranges, minVals
+
