@@ -30,7 +30,7 @@ def classif0(inX, dataSet, labels, k):
 
 
 # 从文本文件中解析数据
-def file2matirx(filename):
+def file2matrix(filename):
     fr = open(filename)
     arrayOfLines = fr.readlines()
     numberOfLines = len(arrayOfLines)
@@ -58,7 +58,7 @@ def autoNorm(dataSet):
     maxVals = dataSet.max(0)
     normDataSet = zeros(dataSet.shape)
     # 数据集的行数
-    rows = dataSet.shape(0)
+    rows = dataSet.shape[0]
     # 得出数据集每个数与其所在列最小值差值
     normDataSet = dataSet - tile(minVals, (rows, 1))
     # 再除以每一列最大值与最小值之差
