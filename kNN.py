@@ -67,3 +67,18 @@ def autoNorm(dataSet):
     # 返回归一化数据集， 原始数据每一列最大值与最小值的差，每一列的最小值
     return normDataSet, ranges, minVals
 
+
+# 分类器针对约会网站的测试代码
+def datingClassTest():
+    hoRtio = 0.10
+    datingDataMat, datingLabels = file2matrix('datingTestSet2.txt')
+    normMat, ranges, minVals = autoNorm(datingDataMat)
+    m = normMat.shape[0]
+    numTestVecs = int(m*hoRtio)
+    errorCount = 0.0
+    for i in range(numTestVecs):
+        classifierResult = classif0(normMat[i,:], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 3)
+        print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i])
+        if(classifierResult != datingLabels[i]): errorCount += 1.0
+    print "the total error rate is: %f" % (errorCount/float(numTestVecs))
+
