@@ -94,5 +94,20 @@ def classifyPerson():
     datingDataMat, datingLabels = file2matrix('datingTestSet2.txt')
     normMat, ranges, minVals = autoNorm(datingDataMat)
     inArr = array([ffMiles, percentTats, iceCream])
-    classifierResult = classif0((inArr - minVals)/ranges, normMat, datingLabels, 3)
+    classifierResult = classif0((inArr - minVals) / ranges, normMat, datingLabels, 3)
     print("You will probably like this person: ", resultList[classifierResult - 1])
+
+
+# 将图像转为向量
+def img2vector(filename):
+    # 最后返回的矩阵，把32*32矩阵转换成1*1024
+    returnVect = zeros((1, 1024))
+    fr = open(filename)
+    # 循环矩阵每一行
+    for i in range(32):
+        # 读取某一行
+        lineStr = fr.readline()
+        # 把每一列数据复制给returnVect
+        for j in range(32):
+            returnVect[0, 32 * i + j] = int(lineStr[j])
+    return returnVect
