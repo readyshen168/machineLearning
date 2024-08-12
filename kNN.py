@@ -155,5 +155,7 @@ def handwritingClassTest():
         # 对比classifierResult和测试矩阵提前给定的数字classNumStr,若不相等，则errorCount加1
         if classifierResult != classNumStr:
             errorCount += 1
+            # 打印错误结果
+            print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr))
     print("\nthe total number of errors is: %d" % errorCount)
     print("\nthe total error rate is : %f" % (errorCount / float(mTest)))
