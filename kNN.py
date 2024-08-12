@@ -1,3 +1,5 @@
+from os import listdir
+
 from numpy import *
 import operator
 
@@ -111,3 +113,47 @@ def img2vector(filename):
         for j in range(32):
             returnVect[0, 32 * i + j] = int(lineStr[j])
     return returnVect
+
+
+# 测试算法： 使用K-近邻算法识别手写数字
+def handwritingClassTest():
+    # 训练文件夹中的文件清单
+    trainingFileList = listdir('machinelearninginaction/Ch02/digits/trainingDigits')
+    # 训练文件夹中文件的个数
+    m = len(trainingFileList)
+    # 训练矩阵和分类标签矩阵
+    trainingMat = zeros((m, 1024))
+    # hwLabels = zeros((0, m))
+    hwLabels = []
+
+    # 循环训练文件夹中每一个文件
+    for i in range(m):
+        # 每一个文件的路径
+        trainingFile = 'machinelearninginaction/Ch02/digits/trainingDigits/' + trainingFileList[i]
+        # 使用img2vector(trainingFile)方法向trainigMat中写入每一个文件的数据
+        trainingMat[i:] = img2vector(trainingFile)
+        # 向hwLabels中写入每一个文件名的第一个字符，即训练向量对应的标签结果
+        # hwLabels[0, i] = int(trainingFileList[i].split('_')[0])
+        hwLabels.append(int(trainingFileList[i].split('.')[0].split('_')[0]))
+
+    # 记录错误次数的变量
+    errorCount = 0.0
+    # 测试矩阵的目录清单
+    testFileList = listdir('machinelearninginaction/Ch02/digits/testDigits')
+    # 测试向量的个数，即测试矩阵的行数
+    mTest = len(testFileList)
+    # 遍历每一个测试文件，计算每一个测试向量的classifierResult
+    for j in range(mTest):
+        # 测试矩阵提前给定的数字
+        classNumStr = int(testFileList[j].split('_')[0])
+        # 每一个测试文件的路径
+        testFileName = 'machinelearninginaction/Ch02/digits/testDigits/' + testFileList[j]
+        # 使用img2vector(testFileName)返回测试矩阵某行的向量
+        vectorUnderTest = img2vector(testFileName)
+        # 使用方法classif0(vectorUnderTest, trainingMat, hwLabels , 3)返回测试矩阵计算出来的数字classifierResult
+        classifierResult = classif0(vectorUnderTest, trainingMat, hwLabels, 3)
+        # 对比classifierResult和测试矩阵提前给定的数字classNumStr,若不相等，则errorCount加1
+        if classifierResult != classNumStr:
+            errorCount += 1
+    print("\nthe total number of errors is: %d" % errorCount)
+    print("\nthe total error rate is : %f" % (errorCount / float(mTest)))
