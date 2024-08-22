@@ -16,5 +16,5 @@ def calcShannonEnt(dataSet):
     for key in labelCounts:
         prob = float(labelCounts[key]) / numEntries
         shannoEnt -= prob * log(prob,2)
-
+    # 返回熵值
     return shannoEnt
