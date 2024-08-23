@@ -14,6 +14,7 @@ def calcShannonEnt(dataSet):
     # 熵值：
     shannoEnt = 0.0
     for key in labelCounts:
+        # 香农公式
         prob = float(labelCounts[key]) / numEntries
         shannoEnt -= prob * log(prob,2)
     # 返回熵值
