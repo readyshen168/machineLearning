@@ -1,6 +1,5 @@
 from math import log
 
-
 # 计算给定数据集的香农熵值
 def calcShannonEnt(dataSet):
     numEntries = len(dataSet)
